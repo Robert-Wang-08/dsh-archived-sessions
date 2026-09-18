@@ -51,7 +51,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "rm -rf lib && tsc -p tsconfig.json && node build.mjs",
+    "build": "node -e \"require('node:fs').rmSync('lib',{recursive:true,force:true})\" && tsc -p tsconfig.json && node build.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
