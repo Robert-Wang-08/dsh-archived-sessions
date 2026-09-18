@@ -10,10 +10,20 @@
  */
 import type { Context } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
-import { settingsNamespace, type SettingsScope } from '@deepseek-ai/dsh-settings'
+import type { SettingsScope } from '@deepseek-ai/dsh-settings'
 
-/** The branded namespace name (persisted durably through the settings provider). */
-export const TOMBSTONE_NAMESPACE = settingsNamespace('dsh-archived-sessions')
+/**
+ * The plugin-owned namespace name (persisted durably through the settings
+ * provider).
+ *
+ * Kept as the plain kebab-case literal. `@deepseek-ai/dsh-settings` published
+ * the `settingsNamespace()` brand helper up to 0.1.0-rc.7 and dropped it from
+ * the export surface in 0.1.5, where the validator survives only as the
+ * module-internal `parseSettingsNamespace`. `SettingsProvider.register` now
+ * takes `Namespace & SettingsNamespaceInput<Namespace>`, so the literal is
+ * accepted directly and checked against the same pattern.
+ */
+export const TOMBSTONE_NAMESPACE = 'dsh-archived-sessions'
 
 /** Schemastery schema of the tombstone section. */
 export const TombstoneSchema: z<{ deleted: string[] }> = z.object({
