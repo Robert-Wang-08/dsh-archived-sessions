@@ -67,6 +67,16 @@ pnpm typecheck
 
 各版本变更见 [CHANGELOG.md](CHANGELOG.md)；GitHub Releases 同步发布说明。
 
+## 宿主兼容性（2026-09-23 复查：dsh 0.1.5-rc.3 + dsh-permission-compat）
+
+宿主升级 `0.1.5-rc.2 → rc.3`（npm latest）并打上全局 `dsh-permission-compat` 沙箱补丁（改 `dsh-sandbox` + 三个工具守卫）后复查，**本插件零改动可用**：
+
+- 与补丁无关：源码与 `lib/` 构建产物不引用 `sandbox_permissions` / `justification` / `approveEscalation` 等提权 API（grep 零命中）。
+- 与 rc.3 无关：服务端唯一外部依赖 `@deepseek-ai/dsh-typert-protocol`，连同 `dsh-settings`、`dsh-api-settings-controller`，rc.2↔rc.3 发布包逐字节相同（仅 package.json 版本号）；本 fork 的 dsh-settings 0.1.5 API fix 覆盖 rc.2/rc.3 同代 API。
+- 客户端 bundle 仍是对 `0.1.0-rc.7` client-runtime 构建——既有状态，非本次引入，rc.3 下无变化。
+
+复查记录见 vault `70-WorkSpace/dsh工具维护日志.md` 2026-09-23 条目；复装说明见 `70-WorkSpace/dsh复装说明.md`。
+
 ## License
 
 MIT
