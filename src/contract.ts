@@ -155,7 +155,7 @@ export const ARCHIVED_INVOCATIONS: readonly InvocationDescriptor[] = [
     result: {
       mode: 'strict',
       typeSymbol: 'dsh-archived-sessions#ArchivedSessionItem[]',
-      schema: z.array(archivedSessionItemSchema),
+      create: () => z.array(archivedSessionItemSchema),
     },
   },
   {
@@ -172,14 +172,14 @@ export const ARCHIVED_INVOCATIONS: readonly InvocationDescriptor[] = [
         codec: {
           mode: 'strict',
           typeSymbol: 'dsh-archived-sessions#SurfaceRequest',
-          schema: surfaceRequestSchema,
+          create: () => surfaceRequestSchema,
         },
       },
     ],
     result: {
       mode: 'strict',
       typeSymbol: 'dsh-archived-sessions#SurfaceResult',
-      schema: surfaceResultSchema,
+      create: () => surfaceResultSchema,
     },
   },
   {
@@ -196,14 +196,14 @@ export const ARCHIVED_INVOCATIONS: readonly InvocationDescriptor[] = [
         codec: {
           mode: 'strict',
           typeSymbol: 'dsh-archived-sessions#DeleteRequest',
-          schema: deleteRequestSchema,
+          create: () => deleteRequestSchema,
         },
       },
     ],
     result: {
       mode: 'strict',
       typeSymbol: 'dsh-archived-sessions#DeleteResult',
-      schema: deleteResultSchema,
+      create: () => deleteResultSchema,
     },
   },
   {
@@ -220,14 +220,14 @@ export const ARCHIVED_INVOCATIONS: readonly InvocationDescriptor[] = [
         codec: {
           mode: 'strict',
           typeSymbol: 'dsh-archived-sessions#RestoreRequest',
-          schema: restoreRequestSchema,
+          create: () => restoreRequestSchema,
         },
       },
     ],
     result: {
       mode: 'strict',
       typeSymbol: 'dsh-archived-sessions#RestoreResult',
-      schema: restoreResultSchema,
+      create: () => restoreResultSchema,
     },
   },
 ]
