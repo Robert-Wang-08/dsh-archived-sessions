@@ -21,8 +21,8 @@ import { registerTombstones } from './settings.ts'
 /** Cordis plugin name (the Loader entry and client bundle id). */
 export const name = '@jiangdaoli/dsh-archived-sessions'
 
-/** Services required before load: the Typert registry and the settings provider. */
-export const inject = ['typert', 'settings']
+/** Services required before load: the Typert registry. */
+export const inject = ['typert']
 
 /**
  * Mount the archived service and its strict Typert manifest.
