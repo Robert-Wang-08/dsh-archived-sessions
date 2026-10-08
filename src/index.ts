@@ -26,8 +26,8 @@ import {
 /** Cordis plugin name (the Loader entry and client bundle id). */
 export const name = '@jiangdaoli/dsh-archived-sessions'
 
-/** Services required before load: the Typert registry and the settings provider. */
-export const inject = ['typert', 'settings']
+/** Services required before load: the Typert registry. */
+export const inject = ['typert']
 
 /**
  * The plugin's Config schema. Re-exported so the Loader derives the settings
