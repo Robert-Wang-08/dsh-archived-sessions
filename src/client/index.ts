@@ -69,7 +69,12 @@ export function apply(ctx: ClientContext): void {
   // internal forks).
   let archived: ArchivedNamespaceFace | undefined
   ctx.effect(async () => {
-    const dispose = await ctx.remote.$mount(ARCHIVED_REMOTE)
+    // The client type package (`@deepseek-ai/dsh-client-runtime@0.1`) still
+    // types `$mount` with the 0.1 descriptor shape, while `ARCHIVED_REMOTE`
+    // carries the 0.2 strict-codec shape the running Gateway validates. Bridge
+    // the version skew at this one boundary.
+    const mount = ctx.remote.$mount as (contribution: unknown) => Promise<() => void>
+    const dispose = await mount(ARCHIVED_REMOTE)
     archived = (ctx.reflect as unknown as { get(name: string): unknown }).get('remote.archived') as ArchivedNamespaceFace | undefined
     if (archived === undefined) {
       throw new Error('dsh-archived-sessions: the archived Remote namespace did not mount')
