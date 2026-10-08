@@ -2,6 +2,15 @@
 
 本项目所有值得记录的变更都列在这里。格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本遵循[语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.4.1] - 2026-10-08
+
+### 修复
+
+- 适配 DSH 0.2 运行时：
+  - Typert strict codec 由 `schema` 改为 `create()` 工厂；
+  - 删除墓碑改由插件自身 Config（`deleted`，volatile 字段）承载，经 `settings.update` 持久化到 profile 条目，不再依赖 0.1 的 settings 命名空间；
+  - 客户端注入 `@deepseek-ai/dsh-api-remotes` 并在 `$mount` 处桥接 0.1/0.2 类型偏差。
+
 ## [0.4.0] - 2026-08-27
 
 ### 新增
