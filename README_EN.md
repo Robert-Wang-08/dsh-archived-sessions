@@ -28,15 +28,14 @@ Once a session is archived in DSH it disappears from every surface with no offic
 `dsh plugin` requires `--profile` (the runtime you are installing into):
 
 ```bash
-# DSH Desktop app
-dsh plugin --profile desktop add @jiangdaoli/dsh-archived-sessions
-# or dsh web
-dsh plugin --profile web add @jiangdaoli/dsh-archived-sessions
+# This fork: replace vX.Y.Z with the tag pinned by dsh-config-pack
+dsh plugin --profile desktop add github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z
+dsh plugin --profile web add github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z
 ```
 
 (`desktop` is the profile the DSH Desktop app runs, `web` corresponds to `dsh web`; use your own profile name if you run a custom one.) After install + restart: **Settings → Archived Sessions**.
 
-> **Install from npm** (the package name above). This GitHub repo contains source only — the built `lib/` artifacts are produced by CI at release time, so installing straight from the repo would miss files. To install from source, run `pnpm install && pnpm build` first.
+> This fork does not publish to npm. The `@jiangdaoli/dsh-archived-sessions` scope belongs to upstream. `dsh-config-pack` installs the `github:...#vX.Y.Z` spec above; `prepare` runs `pnpm build` during that install and produces `lib/`. Tag and manual CI only install and build.
 
 ## How it works
 

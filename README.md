@@ -28,15 +28,14 @@ DSH 中「归档会话」后，会话会从所有界面消失且没有官方入�
 `dsh plugin` 必须指定 `--profile`（对应你要装到的运行环境）：
 
 ```bash
-# DSH Desktop 桌面应用
-dsh plugin --profile desktop add @jiangdaoli/dsh-archived-sessions
-# 或 dsh web
-dsh plugin --profile web add @jiangdaoli/dsh-archived-sessions
+# 本 fork：把 vX.Y.Z 换成 dsh-config-pack 锁上的 tag
+dsh plugin --profile desktop add github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z
+dsh plugin --profile web add github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z
 ```
 
 （`desktop` 是 DSH Desktop 应用使用的 profile 名，`web` 对应 `dsh web`；用了自定义 profile 就换成自己的名字。）安装后重启 DSH，在 **设置 → 已归档会话** 查看。
 
-> **请从 npm 安装**（上方的包名）。GitHub 仓库只包含源码，构建产物（`lib/`）在发布时由 CI 生成，从仓库直接安装会缺文件。从源码安装请先 `pnpm install && pnpm build`。
+> 本 fork 不向 npm 发布。`@jiangdaoli/dsh-archived-sessions` 的 scope 属于上游。`dsh-config-pack` 用上面的 `github:...#vX.Y.Z` 安装；`package.json` 的 `prepare` 会在安装时执行 `pnpm build`，生成 `lib/`。标签或手动触发的 CI 只做安装和构建。
 
 ## 工作原理
 
