@@ -1,17 +1,15 @@
-name: publish
+name: build
 
-# Publish the package to npm via OIDC trusted publishing — no long-lived
-# npm token is used or required (npm deprecated bypass-2FA publish tokens;
-# see https://github.blog/changelog/2026-07-08-npm-install-time-security-and-gat-bypass2fa-deprecation/).
+# This fork is installed by dsh-config-pack as
+# github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z.
+# package.json "prepare" builds lib/ on that git install.
 #
-# Before this workflow can authenticate, bind the package once on npm:
-#   npmjs.com → @jiangdaoli/dsh-archived-sessions → Settings → Publish Access
-#   → "GitHub Actions" → select this repository (Jiangdl0220/dsh-archived-sessions)
-#   → workflow name `publish` (this file) → add.
-# That binding requires an interactive npm session with 2FA.
+# Do not pnpm publish. The package name @jiangdaoli/dsh-archived-sessions
+# is owned by the upstream scope; OIDC token exchange and the registry PUT
+# both 404 from this repository (ERR_PNPM_AUTH_TOKEN_EXCHANGE).
 #
-# Trigger: push a tag (vX.Y.Z) or run the workflow manually. The published
-# version comes from package.json — bump it before tagging.
+# Trigger: push a tag (vX.Y.Z) or run the workflow manually.
+# The job only installs and builds.
 
 on:
   push:
@@ -20,17 +18,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # npm OIDC trusted publishing
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -39,6 +36,3 @@ jobs:
 
       - name: Build
         run: pnpm build
-
-      - name: Publish to npm
-        run: pnpm publish --no-git-checks

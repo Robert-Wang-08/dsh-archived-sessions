@@ -1,8 +1,10 @@
 # 发布流程（RELEASING）
 
-> **铁律：未经用户本地验收并明确 OK，不得推送 GitHub、不得发布 npm。**
+> **铁律：未经用户本地验收并明确 OK，不得推送 GitHub、不得打 tag。**
 >
-> 顺序永远是：**实现 → 本地验收 → 发布**。发布（推送代码 + npm + Release）只能发生在用户说「OK」之后。
+> 顺序永远是：**实现 → 本地验收 → 发布**。发布（推送代码 + tag + GitHub Release）只能发生在用户说「OK」之后。
+>
+> 本 fork **不发布 npm**。包名 `@jiangdaoli/dsh-archived-sessions` 的 scope 属于上游；从这个仓库做 OIDC trusted publishing 会 `ERR_PNPM_AUTH_TOKEN_EXCHANGE` / `PUT 404`。安装方是 `dsh-config-pack`，spec 为 `github:Robert-Wang-08/dsh-archived-sessions#vX.Y.Z`。`prepare` 会在该 git 安装时执行 `pnpm build`。
 
 ## 阶段一：实现与本地验收（发布前必经）
 
@@ -11,7 +13,7 @@
 3. 提醒用户**重启 DSH** 并在界面上验收：
    - 新功能符合预期；
    - 无回归（归档列表、查看器、恢复、删除等原有功能正常）。
-4. **停在验收门**：等待用户明确说 OK。用户确认之前，禁止：bump 版本号、commit 发布提交、打 tag、push、publish。
+4. **停在验收门**：等待用户明确说 OK。用户确认之前，禁止：bump 版本号、commit 发布提交、打 tag、push。
 
 ## 阶段二：发布（验收通过后）
 
@@ -19,7 +21,7 @@
 2. **更新 README**（中英文）：功能列表如有变化，同步修改；必要时更新安装说明。
 3. `package.json` bump 版本号 → 提交（commit 消息带版本，如 `chore: bump to x.y.z`）。
 4. 打 tag `vX.Y.Z` 并推送 `main` + tag。
-5. 等待 CI（OIDC 信任发布）自动发布 npm，`npm view` 确认新版本在线。
+5. 等待 CI（`.github/workflows/release.yml`，标签或手动触发）跑通 `pnpm install --frozen-lockfile` 与 `pnpm build`。该 workflow **不会** `pnpm publish`。
 6. **生成 GitHub Release 说明**（内容取自 CHANGELOG，中英对照）：
    ```bash
    gh release create vX.Y.Z --title "vX.Y.Z — <一句话主题>" --notes-file <notes.md>
@@ -34,5 +36,5 @@
 - [ ] CHANGELOG.md 已更新（新版本小节）
 - [ ] README（中/英）已同步
 - [ ] 版本号已 bump 并提交
-- [ ] tag 已推送，CI 发布成功（npm view 确认）
+- [ ] tag 已推送，CI 的 build（install + build）成功
 - [ ] GitHub Release 已创建、Latest 标记正确
