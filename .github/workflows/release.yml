@@ -15,8 +15,6 @@ on:
   push:
     tags:
       - 'v*'
-    branches:
-      - cursor/gha-release-build-only-e786
   workflow_dispatch:
 
 jobs:
