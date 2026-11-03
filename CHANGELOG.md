@@ -2,6 +2,13 @@
 
 本项目所有值得记录的变更都列在这里。格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本遵循[语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.4.4] - 2026-11-03
+
+### 修复
+
+- 补上 `0.2.1-rc.5` peer 升级后没有重写的 `pnpm-lock.yaml`，CI 的 `pnpm install --frozen-lockfile` 才能通过。
+- 直接依赖的 `@deepseek-ai/schemastery` 从 `^3.18.4` 收到 `~3.18.5`，与 `dsh-settings` 的 peer 对齐，避免两份副本让 `tsc` 无法写出声明文件。
+
 ## [0.4.1] - 2026-10-08
 
 ### 修复
